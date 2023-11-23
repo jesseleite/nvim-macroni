@@ -1,6 +1,6 @@
 # Macroni
 
-Yank your macros to an easily mappable format for future use!
+Yank your macros to an easily mappable format for future use in Neovim!
 
 ## Usage
 
