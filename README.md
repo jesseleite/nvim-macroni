@@ -4,7 +4,7 @@ Yank your macros to an easily mappable format for future use in Neovim!
 
 ## Usage
 
-Simply run `:YankMacro [register]` to yank a recorded macro from a register, then paste the macro directly into a custom mapping in your config 🤌
+Simply run `:YankMacro [register]` to yank a recorded macro from a register, then paste the macro directly into a custom mapping or function in your config 🤌
 
 ### Example
 
