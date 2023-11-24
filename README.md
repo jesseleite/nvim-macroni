@@ -11,8 +11,10 @@ Simply run `:YankMacro [register]` to yank a recorded macro from a register, the
 For example, say we record a short macro to the `q` register to make a todo list item on the current line. We can then run `:YankMacro q`, and paste into a mapping like so:
 
 ```lua
-vim.keymap.set('n', '<Leader>t', '^i-<Space>[<Space>]<Space><Esc>')
+vim.keymap.set('n', '<Leader>t', '^i-<Space>[<Space>]<Space><Esc>', { remap = true })
 ```
+
+_Note: It is recommended that you set the `remap = true` option, to ensure that your macro is run more accurately as if you had manually run it yourself!_
 
 ### Advanced Usage
 
@@ -23,5 +25,5 @@ local make_todo_list_item = function ()
   require('macroni').run('^i-<Space>[<Space>]<Space><Esc>')
 end
 
-vim.keymap.set('n', '<Leader>t', make_todo_list_item)
+vim.keymap.set('n', '<Leader>t', make_todo_list_item, { remap = true })
 ```
