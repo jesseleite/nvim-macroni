@@ -1,12 +1,17 @@
 local M = {}
 
 function M.yank(register)
-  if not register then
-    print('Please specify a register to yank from!')
+  register = register or vim.fn.input('Please specify a register to yank from: ')
+  vim.cmd.mode()
+
+  local register_content = vim.fn.getreg(register)
+
+  if register == '' or register_content == '' then
+    print('Invalid register content!')
     return
   end
 
-  local macro = vim.fn.keytrans(vim.fn.getreg(register))
+  local macro = vim.fn.keytrans(register_content)
   vim.fn.setreg('+', macro)
   vim.fn.setreg('*', macro)
   vim.fn.setreg('"', macro)
