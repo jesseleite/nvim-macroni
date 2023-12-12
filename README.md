@@ -2,6 +2,12 @@
 
 Yank your macros to an easily mappable format for future use in Neovim!
 
+## Rationale
+
+Q: Why use Macroni at all when you can just yank directly from your register?
+
+A: Because then you have to deal with escaping termcodes, quotes, etc. yourself. Macroni escapes all that stuff for you, so you can paste directly to a mapping or function!
+
 ## Usage
 
 Simply run `:YankMacro [register]` to yank a recorded macro from a register, then paste the macro directly into a custom mapping or function in your config 🤌
