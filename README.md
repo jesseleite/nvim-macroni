@@ -1,12 +1,14 @@
 # Macroni
 
-Yank your macros to an easily mappable format for future use in Neovim!
+Save your macros to an easily mappable format for future use in Neovim!
 
 ## Rationale
 
 Q: Why use Macroni at all when you can just yank directly from your register?
 
 A: Because then you have to deal with escaping termcodes, quotes, etc. yourself. Macroni escapes all that stuff for you, so you can paste directly to a mapping or function!
+
+> _Note: Telescope picker coming soon!_
 
 ## Usage
 
