@@ -10,6 +10,18 @@ A: Because then you have to deal with escaping termcodes, quotes, etc. yourself.
 
 > _Note: Telescope picker coming soon!_
 
+## Installation
+For [lazy.vim](https://github.com/folke/lazy.nvim)
+```lua
+  {
+    "jesseleite/nvim-macroni",
+    cmd = "YankMacro",
+    keys = {
+      { "<leader>ym", [[:YankMacro ]], mode = "n", desc = "Yank Macro" }, -- optional
+    },
+  },
+```
+
 ## Usage
 
 Simply run `:YankMacro [register]` to yank a recorded macro from a register, then paste the macro directly into a custom mapping or function in your config 🤌
