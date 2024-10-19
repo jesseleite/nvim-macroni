@@ -9,7 +9,7 @@ function M.setup(opts)
   for key,macro in pairs(macros) do
     if macro ~= 'string' and macro.keymap and macro.macro then
       vim.keymap.set('n', macro.keymap, function () M.runSaved(key) end, {
-        desc = 'Saved macro: '..(macro.desc or key),
+        desc = 'Macro: '..(macro.desc or key),
         remap = true,
       })
     end
