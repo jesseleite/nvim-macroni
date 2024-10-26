@@ -1,12 +1,19 @@
 local M = {}
 
-local macros = {}
+local config = {
+  settings = {
+    yank = {
+      escape_characters = { '"', "'" },
+    },
+  },
+  macros = {},
+}
 
 function M.setup(opts)
-  macros = opts.macros or {}
+  config = vim.tbl_deep_extend('force', config, opts)
 
--- Experimental, may change!
-  for key,macro in pairs(macros) do
+  -- Experimental, may change!
+  for key,macro in pairs(config.macros) do
     if macro ~= 'string' and macro.keymap and macro.macro then
       vim.keymap.set('n', macro.keymap, function () M.runSaved(key) end, {
         desc = 'Macro: '..(macro.desc or key),
@@ -28,6 +35,11 @@ function M.yank(register)
   end
 
   local macro = vim.fn.keytrans(register_content)
+
+  for _, character in ipairs(config.settings.yank.escape_characters) do
+    macro = string.gsub(macro, character, '\\'..character)
+  end
+
   vim.fn.setreg('+', macro)
   vim.fn.setreg('*', macro)
   vim.fn.setreg('"', macro)
@@ -42,7 +54,7 @@ end
 -- Experimental, may change!
 -- TODO: Build telescope picker to easily select a saved macro
 function M.runSaved(key)
-  local macro = macros[key]
+  local macro = config.macros[key]
   if type(macro) == 'string' then
     return M.run(macro)
   end
