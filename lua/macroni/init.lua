@@ -1,10 +1,8 @@
 local M = {}
 
 local config = {
-  settings = {
-    yank = {
-      escape_characters = { '"', "'" },
-    },
+  yank = {
+    escape_characters = { '"', "'" },
   },
   macros = {},
 }
@@ -36,7 +34,7 @@ function M.yank(register)
 
   local macro = vim.fn.keytrans(register_content)
 
-  for _, character in ipairs(config.settings.yank.escape_characters) do
+  for _, character in ipairs(config.yank.escape_characters) do
     macro = string.gsub(macro, character, '\\'..character)
   end
 
