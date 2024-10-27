@@ -7,7 +7,7 @@ local config = {
   macros = {},
 }
 
-function M.setup(opts)
+M.setup = function(opts)
   config = vim.tbl_deep_extend('force', config, opts)
 
   -- Experimental, may change!
@@ -21,7 +21,7 @@ function M.setup(opts)
   end
 end
 
-function M.yank(register)
+M.yank = function (register)
   register = register or vim.fn.input('Please specify a register to yank from: ')
   vim.cmd.mode()
 
@@ -45,18 +45,18 @@ function M.yank(register)
   print('Yanked macro from register `'..register..'`')
 end
 
-function M.run(macro)
+M.run = function (macro)
   vim.cmd.normal(vim.api.nvim_replace_termcodes(macro, true, true, true))
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
 end
 
 -- Experimental, may change!
--- TODO: Build telescope picker to easily select a saved macro
-function M.runSaved(key)
+M.run_saved = function (key)
   local macro = config.macros[key]
-  if type(macro) == 'string' then
-    return M.run(macro)
+  if type(macro) ~= 'string' then
+    macro = macro.macro
   end
-  return M.run(macro.macro)
+  return M.run(macro)
 end
 
 return M
