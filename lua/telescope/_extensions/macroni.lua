@@ -59,6 +59,7 @@ end
 
 return telescope.register_extension {
   exports = {
+    macroni = saved_macros,
     saved_macros = saved_macros,
   }
 }
