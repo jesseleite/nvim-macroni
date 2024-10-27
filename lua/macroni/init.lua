@@ -21,6 +21,10 @@ M.setup = function(opts)
   end
 end
 
+M.config = function ()
+  return config
+end
+
 M.yank = function (register)
   register = register or vim.fn.input('Please specify a register to yank from: ')
   vim.cmd.mode()
