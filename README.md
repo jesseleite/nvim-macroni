@@ -11,6 +11,7 @@ Save your macros for future use in Neovim! 🤌
     - [Directly into a keymap](#saving-directly-into-a-keymap)
     - [Directly into a lua function](#saving-directly-into-a-lua-function)
 - [Playing Saved Macros](#playing-saved-macros)
+- [Advanced Usage](#advanced-usage)
 - [Thank You](#thank-you)
 
 ## Rationale
@@ -83,29 +84,59 @@ require('macroni').setup({
 })
 ```
 
-If you wish to define a keymap for a saved macro, you may use table syntax:
+If you wish to define a `keymap` for a saved macro, you may use table syntax:
 
 ```lua
 require('macroni').setup({
   macros = {
     make_todo_list_item = {
-      macro = '^i-<Space>[<Space>]<Space><Esc>',  -- Your macros then goes here
-      keymap = '<Leader>t',                       -- Along with your desired keymap (optional)
-      desc = 'Make a markdown todo list item!',   -- And a keymap description (optional)
+      macro = '^i-<Space>[<Space>]<Space>',
+      keymap = '<Leader>t',
     },
   }
 })
 ```
 
+By default, macro keymaps are mapped to both normal and visual modes (`{'n', 'v'}`), so that macros can be played back over multiline selections.
+
 ### Playing Saved Macros
 
-Your configured macros will be automatically added to Macroni's [Telescope](https://github.com/nvim-telescope/telescope.nvim) picker (see [Installation](#installation) for more info). Selecting a macro from this picker will play it back on the current line / on your selected lines.
+On top of your configured keymaps, all configured macros will be automatically added to Macroni's [Telescope](https://github.com/nvim-telescope/telescope.nvim) picker (see [Installation](#installation) for more info). Selecting a macro from this picker will play it back on the current line / on your selected lines.
 
 ## Advanced Usage
 
+#### Advanced Keymap Configuration
+
+For more advanced keymap control, you may provide optional `desc` and `mode` keys, which will be passed to `vim.keymap.set` under the hood:
+
+```lua
+require('macroni').setup({
+  macros = {
+    make_todo_list_item = {
+      macro = '^i-<Space>[<Space>]<Space>',
+      keymap = '<Leader>t',
+      mode = { 'n', 'v' }, -- By default, macros will be mapped to both normal & visual modes
+      desc = 'Make a markdown list item!', -- Description for whichkey or similar
+    },
+  }
+})
+```
+
+#### Customizing Escaped Characters on Yank
+
+By default, macroni will replace termcodes and escape quotes when [yanking](#yanking-macros), so that you can easily paste as a lua string. If you wish to extend the list of escaped characters, you may add the following configuration:
+
+```lua
+require('macroni').setup({
+  yank = {
+    escape_characters = { '"', "'" }, -- By default, single and double quote are escaped
+  },
+})
+```
+
 #### Saving Directly Into a Keymap
 
-If you want to save a [yanked macro](#yanking-macros) directly into a keymap, simply paste it in:
+If you want to save a [yanked macro](#yanking-macros) directly into your own keymap, simply paste it in:
 
 ```lua
 vim.keymap.set('n', '<Leader>t', '^i-<Space>[<Space>]<Space><Esc>', { remap = true })
@@ -132,4 +163,5 @@ Here's where can find me on the internet...
 [jesseleite.com](https://jesseleite.com)<br>
 [vimfornormalpeople.com](https://vimfornormalpeople.com)<br>
 [X](https://x.com/jesseleite85)<br>
-[my neovim config btw](https://github.com/jesseleite/dotfiles/tree/master/nvim)<br>
+[My Neovim config BTW](https://github.com/jesseleite/dotfiles/tree/master/nvim)<br>
+[My NeovimConf talk on macros](https://youtu.be/5x3dXo8aDCI?si=9_hKDsRXiC76AWDK) 📺<br>
