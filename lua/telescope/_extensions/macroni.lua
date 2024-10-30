@@ -13,20 +13,43 @@ local normalized_macros = function ()
   local macros = {}
 
   for k,v in pairs(macroni.config().macros) do
-    local macro = {}
-
-    macro.key = k
-
-    if v.desc then
-      macro.display = k..' ('..v.desc..')'
-    else
-      macro.display = k
-    end
-
-    table.insert(macros, macro)
+    table.insert(macros, {
+      key = k,
+      keymap = v.keymap or '',
+      desc = v.desc or '',
+    })
   end
 
   return macros
+end
+
+local entry_maker = function (opts)
+  local displayer = require("telescope.pickers.entry_display").create {
+    separator = " ",
+    items = {
+      { width = opts.width_macro or 30 },
+      { width = opts.width_keymap or 20 },
+      { remaining = true },
+    },
+  }
+
+  local make_display = function (entry)
+    return displayer {
+      entry.value,
+      entry.keymap,
+      entry.desc,
+    }
+  end
+
+  return function (entry)
+    return {
+      value = entry.key,
+      keymap = entry.keymap,
+      desc = entry.desc,
+      ordinal = entry.key .. " " .. entry.keymap .. " " .. entry.desc,
+      display = make_display,
+    }
+  end
 end
 
 local playback_macro_action = function (prompt_bufnr)
@@ -53,13 +76,7 @@ local saved_macros = function (opts)
     sorter = config.generic_sorter(opts),
     finder = finders.new_table {
       results = normalized_macros(),
-      entry_maker = function(macro)
-        return {
-          value = macro.key,
-          display = macro.display,
-          ordinal = macro.display,
-        }
-      end,
+      entry_maker = entry_maker(opts),
     },
     attach_mappings = function()
       actions.select_default:replace(playback_macro_action)
