@@ -1,6 +1,6 @@
 # Macroni
 
-Save your macros for future use in Neovim!
+Save your macros for future use in Neovim! 🤌
 
 - [Rationale](#rationale)
 - [Installation](#installation)
@@ -17,7 +17,7 @@ Save your macros for future use in Neovim!
 
 Q: Why use Macroni at all when you can just yank directly from your register?
 
-A: Because then you have to deal with escaping termcodes, quotes, etc. yourself. Macroni escapes all that stuff so you can paste directly to a mapping or function, or save to your config for quick access via [Telescope picker](https://github.com/nvim-telescope/telescope.nvim), etc. 💅
+A: Because then you have to deal with escaping termcodes, quotes, etc. yourself. Macroni escapes all that stuff for you, so you can paste directly to a mapping or function, or save to your config for quick access via Macroni's handy [Telescope picker](https://github.com/nvim-telescope/telescope.nvim) 💅
 
 ## Installation
 
