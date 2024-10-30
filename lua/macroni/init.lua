@@ -1,3 +1,5 @@
+local utils = require('macroni.utils')
+
 local M = {}
 
 local config = {
@@ -51,16 +53,32 @@ end
 
 M.run = function (macro)
   vim.cmd.normal(vim.api.nvim_replace_termcodes(macro, true, true, true))
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+  utils.ensure_normal_mode()
 end
 
--- Experimental, may change!
+M.run_on_selection = function (macro)
+  vim.api.nvim_command(":'<,'>norm "..vim.api.nvim_replace_termcodes(macro, true, true, true))
+  utils.ensure_normal_mode()
+end
+
 M.run_saved = function (key)
   local macro = config.macros[key]
+
   if type(macro) ~= 'string' then
     macro = macro.macro
   end
+
   return M.run(macro)
+end
+
+M.run_saved_on_selection = function (key)
+  local macro = config.macros[key]
+
+  if type(macro) ~= 'string' then
+    macro = macro.macro
+  end
+
+  return M.run_on_selection(macro)
 end
 
 return M
