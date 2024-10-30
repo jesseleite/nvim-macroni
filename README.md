@@ -42,11 +42,7 @@ A: Because then you have to deal with escaping termcodes, quotes, etc. yourself.
     }
     ```
 
-2. If you're using [Telescope](https://github.com/nvim-telescope/telescope.nvim), don't forget to load the extension and map the fuzzy picker:
-
-    ```lua
-    require('telescope').load_extension('macroni')
-    ```
+2. If you're using [Telescope](https://github.com/nvim-telescope/telescope.nvim), don't forget to map Macroni's fuzzy picker:
 
     ```lua
     vim.keymap.set({'n', 'v'}, '<Leader>m', function ()
