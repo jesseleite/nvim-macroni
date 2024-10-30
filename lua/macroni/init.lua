@@ -12,10 +12,9 @@ local config = {
 M.setup = function(opts)
   config = vim.tbl_deep_extend('force', config, opts)
 
-  -- Experimental, may change!
   for key,macro in pairs(config.macros) do
     if macro ~= 'string' and macro.keymap and macro.macro then
-      vim.keymap.set('n', macro.keymap, function () M.runSaved(key) end, {
+      vim.keymap.set(macro.mode or {'n', 'v'}, macro.keymap, function () M.runSaved(key) end, {
         desc = 'Macro: '..(macro.desc or key),
         remap = true,
       })
