@@ -62,23 +62,21 @@ M.run_on_selection = function (macro)
 end
 
 M.run_saved = function (key)
-  local macro = config.macros[key]
-
-  if type(macro) ~= 'string' then
-    macro = macro.macro
-  end
-
-  return M.run(macro)
+  return M.run(M.get_macro(key))
 end
 
 M.run_saved_on_selection = function (key)
+  return M.run_on_selection(M.get_macro(key))
+end
+
+M.get_macro = function (key)
   local macro = config.macros[key]
 
   if type(macro) ~= 'string' then
     macro = macro.macro
   end
 
-  return M.run_on_selection(macro)
+  return macro
 end
 
 return M
