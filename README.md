@@ -2,6 +2,8 @@
 
 Save your macros for future use in Neovim! 🤌
 
+![](screenshot.png)
+
 - [Rationale](#rationale)
 - [Installation](#installation)
 - [Macro Basics](#macro-basics)
@@ -77,24 +79,24 @@ That said, don't be afraid to bypass Macroni's config and paste them directly in
 To save macros to your Macroni config, simply add a `macros` table within your `setup(opts)`:
 
 ```lua
-require('macroni').setup({
+require('macroni').setup {
   macros = {
     make_todo_list_item = '^i-<Space>[<Space>]<Space><Esc>',
-  }
-})
+  },
+}
 ```
 
 If you wish to define a `keymap` for a saved macro, you may use table syntax:
 
 ```lua
-require('macroni').setup({
+require('macroni').setup {
   macros = {
     make_todo_list_item = {
       macro = '^i-<Space>[<Space>]<Space>',
       keymap = '<Leader>t',
     },
-  }
-})
+  },
+}
 ```
 
 By default, macro keymaps are mapped to both normal and visual modes (`{'n', 'v'}`), so that macros can be played back over multiline selections.
@@ -110,7 +112,7 @@ On top of your configured keymaps, all configured macros will be automatically a
 For more advanced keymap control, you may provide optional `desc` and `mode` keys, which will be passed to `vim.keymap.set` under the hood:
 
 ```lua
-require('macroni').setup({
+require('macroni').setup {
   macros = {
     make_todo_list_item = {
       macro = '^i-<Space>[<Space>]<Space>',
@@ -118,8 +120,8 @@ require('macroni').setup({
       mode = { 'n', 'v' }, -- By default, macros will be mapped to both normal & visual modes
       desc = 'Make a markdown list item!', -- Description for whichkey or similar
     },
-  }
-})
+  },
+}
 ```
 
 #### Customizing Escaped Characters on Yank
@@ -127,11 +129,11 @@ require('macroni').setup({
 By default, macroni will replace termcodes and escape quotes when [yanking](#yanking-macros), so that you can easily paste as a lua string. If you wish to extend the list of escaped characters, you may add the following configuration:
 
 ```lua
-require('macroni').setup({
+require('macroni').setup {
   yank = {
     escape_characters = { '"', "'" }, -- By default, single and double quote are escaped
   },
-})
+}
 ```
 
 #### Saving Directly Into a Keymap

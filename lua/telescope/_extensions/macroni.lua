@@ -12,7 +12,7 @@ local current_mode
 local normalized_macros = function ()
   local macros = {}
 
-  for k,v in pairs(macroni.config().macros) do
+  for k, v in pairs(macroni.config().macros) do
     table.insert(macros, {
       key = k,
       keymap = v.keymap or '',
