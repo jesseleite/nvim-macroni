@@ -10,7 +10,7 @@ local config = {
 }
 
 M.setup = function(opts)
-  config = vim.tbl_deep_extend('force', config, opts)
+  config = vim.tbl_deep_extend('force', config, opts or {})
 
   for key,macro in pairs(config.macros) do
     if macro ~= 'string' and macro.keymap and macro.macro then
